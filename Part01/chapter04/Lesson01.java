@@ -16,12 +16,12 @@ public class Lesson01 {
 		Product pr3 = input.input("Iphone", 600, 50);
 
 		pr1.input(pr1);
-		pr1.export(pr1);
-		pr2.export(pr2);
-		pr3.export(pr3);
+		pr1.export();
+		pr2.export();
+		pr3.export();
 
-		pr1.getImportTax(pr1);
-		pr2.getImportTax(pr2);
-		pr3.getImportTax(pr3);
+		pr1.getImportTax();
+		pr2.getImportTax();
+		pr3.getImportTax();
 	}
 }

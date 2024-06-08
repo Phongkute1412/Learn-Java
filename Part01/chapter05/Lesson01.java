@@ -16,7 +16,7 @@ public class Lesson01 {
 		Scanner scanner = new Scanner(System.in);
 
 		while (true) {
-			System.out.print("Enter a real number: ");
+			System.out.print("Enter a number: ");
 			Double number = scanner.nextDouble();
 			scanner.nextLine();
 			arr.add(number);

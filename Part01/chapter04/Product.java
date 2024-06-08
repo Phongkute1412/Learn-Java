@@ -72,15 +72,15 @@ public class Product {
 		scanner.close();
 	}
 
-	public void export(Product pr) {
-		System.out.println("Name: " + pr.getProductName());
-		System.out.println("Price: " + pr.getUnitPrice());
-		System.out.println("Discount: " + pr.getDiscount());
+	public void export() {
+		System.out.println("Name: " + getProductName());
+		System.out.println("Price: " + getUnitPrice());
+		System.out.println("Discount: " + getDiscount());
 		System.out.println("---------------------------");
 	}
 
-	public double getImportTax(Product pr) {
-		System.out.println("Import Tax of " + pr.getProductName() + " product is: " + pr.getUnitPrice() * 10 / 100);
-		return pr.getUnitPrice() * 10 / 100;
+	public double getImportTax() {
+		System.out.println("Import Tax of " + getProductName() + " product is: " + getUnitPrice() * 10 / 100);
+		return getUnitPrice() * 10 / 100;
 	}
 }

@@ -23,11 +23,11 @@ public class Lesson03 {
 
 		while (loop) {
 			System.out.println("+--------------------------------------------+");
-			System.out.println("1. Enter product list from keyboard");
-			System.out.println("2. Sort in descending order by price and output to the screen");
-			System.out.println("3. Find and delete products by name entered from the keyboard");
-			System.out.println("4. Export the average price of the products");
-			System.out.println("5. End");
+			System.out.println("1. Enter product list from keyboard.");
+			System.out.println("2. Sort in descending order by price and output to the screen.");
+			System.out.println("3. Find and delete products by name entered from the keyboard.");
+			System.out.println("4. Export the average price of the products.");
+			System.out.println("5. End.");
 			System.out.println("+--------------------------------------------+");
 			System.out.print("Select function: ");
 
@@ -39,16 +39,12 @@ public class Lesson03 {
 				enterProductName(scanner);
 				break;
 			case 2:
-				if (products.size() == 0) {
-					System.out.println("List of products is empty. Please choose again");
-				} else {
-					Collections.sort(products, new Comparator<Product>() {
-						public int compare(Product p1, Product p2) {
-							return Double.compare(p2.getPrice(), p1.getPrice());
-						}
-					});
-					exportImportedList();
-				}
+				Collections.sort(products, new Comparator<Product>() {
+					public int compare(Product p1, Product p2) {
+						return Double.compare(p2.getPrice(), p1.getPrice());
+					}
+				});
+				exportImportedList();
 				break;
 			case 3:
 				if (products.size() == 0) {
@@ -71,6 +67,7 @@ public class Lesson03 {
 				break;
 			}
 		}
+
 	}
 
 	public static ArrayList<Product> enterProductName(Scanner scanner) {
