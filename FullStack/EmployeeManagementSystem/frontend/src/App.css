@@ -1,0 +1,69 @@
+#root {
+  height: 100vh;
+}
+
+.container {
+  flex: 1;
+  padding-bottom: 100px;
+}
+
+.footer {
+  bottom: 0vh;
+  width: 100%;
+  height: 50px;
+  background-color: #5161ce;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.col-id {
+  width: 3%;
+  min-width: 50px;
+}
+
+.col-first-name {
+  width: 8%;
+  min-width: 120px;
+}
+
+.col-last-name {
+  width: 12%;
+  min-width: 120px;
+}
+
+.col-email {
+  width: 20%;
+  min-width: 180px;
+}
+
+.col-department {
+  width: 15%;
+  min-width: 180px;
+}
+
+.col-project {
+  width: 25%;
+  min-width: 150px;
+}
+
+.col-actions {
+  width: 17%;
+  min-width: 100px;
+}
+
+.col-name {
+  width: 22%;
+  min-width: 100px;
+}
+
+.col-description {
+  width: 58.5%;
+  min-width: 100px;
+}

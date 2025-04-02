@@ -1,0 +1,14 @@
+<th scope="col" th:fragment="sorting(field, label)">
+  <a
+    th:href="@{'/ems?' + ${keyword != null && keyword != '' ? 'keyword=' + keyword + '&' : ''}
+              + 'page=' + ${currentPage > 0 ? currentPage - 1 : 0} + '&size=' + ${pageSize}
+              + '&sortBy=' + ${field} + '&sortDir=' + ${sortBy == field ? reverseSortDir : sortDir}}"
+  >
+    [[${label}]]
+  </a>
+  <span
+    th:if="${sortBy == field}"
+    th:class="${sortDir == 'asc' ? 'fas fa-arrow-down-short-wide' : 'fas fa-arrow-down-wide-short'}"
+  >
+  </span>
+</th>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0"
+    />
+    <title>Add Employee</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <script
+      type="text/javascript"
+      th:src="@{/webjars/jquery/jquery.min.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container-fluid" style="max-width: 900px; margin: 20px auto">
+      <h2 class="text-center">Add Employee</h2>
+
+      <div class="my-3">
+        <form
+          th:action="@{/ems/save}"
+          method="post"
+          th:object="${employee}"
+          style="max-width: 550px; margin: 0 auto"
+        >
+          <div class="p-3">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="firstName"
+                >First Name</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  th:field="*{firstName}"
+                  class="form-control"
+                  id="firstName"
+                  placeholder="Enter first name"
+                />
+                <p
+                  th:if="${#fields.hasErrors('firstName')}"
+                  th:errors="*{firstName}"
+                  class="text-danger"
+                ></p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="lastName"
+                >Last Name</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  th:field="*{lastName}"
+                  class="form-control"
+                  id="lastName"
+                  placeholder="Enter last name"
+                />
+                <p
+                  th:if="${#fields.hasErrors('lastName')}"
+                  th:errors="*{lastName}"
+                  class="text-danger"
+                ></p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="account"
+                >Account</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  th:field="*{account}"
+                  class="form-control"
+                  id="account"
+                  placeholder="Enter account"
+                />
+                <p
+                  th:if="${#fields.hasErrors('account')}"
+                  th:errors="*{account}"
+                  class="text-danger"
+                ></p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="role">Role</label>
+              <div class="col-sm-9">
+                <select th:field="*{role}" class="form-control" id="role">
+                  <option
+                    th:each="role : ${roles}"
+                    th:value="${role.roleName}"
+                    th:text="${role.roleName}"
+                  ></option>
+                </select>
+                <p
+                  th:if="${#fields.hasErrors('role')}"
+                  th:errors="*{role}"
+                  class="text-danger"
+                ></p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="project"
+                >Project</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  th:field="*{project}"
+                  class="form-control"
+                  id="project"
+                  placeholder="Enter project"
+                />
+              </div>
+            </div>
+
+            <div class="text-center">
+              <input
+                type="submit"
+                value="Save"
+                class="btn btn-primary btn-sm mr-2"
+              />
+              <input
+                type="button"
+                value="Cancel"
+                id="btnCancel"
+                class="btn btn-secondary btn-sm"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#btnCancel").on("click", function () {
+          window.location = "[[@{/ems}]]";
+        });
+      });
+    </script>
+  </body>
+</html>

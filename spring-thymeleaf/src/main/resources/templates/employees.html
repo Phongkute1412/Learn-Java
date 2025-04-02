@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0"
+    />
+    <title>List of Employees</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      type="text/javascript"
+      th:src="@{/webjars/jquery/jquery.min.js}"
+    ></script>
+    <script
+      type="text/javascript"
+      th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container-fluid" style="max-width: 900px; margin: 20px auto">
+      <h2 class="text-center">List of Employees</h2>
+
+      <div class="my-3">
+        <form th:action="@{/ems}" method="get" id="searchForm">
+          <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-3 mt-2">
+              <a th:href="@{/ems/add}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Add Employee
+              </a>
+            </div>
+
+            <div class="col-md-6 mt-2">
+              <div class="search">
+                <i class="fa fa-search"></i>
+                <input
+                  id="keyword"
+                  type="search"
+                  name="keyword"
+                  th:value="${keyword}"
+                  class="form-control"
+                  placeholder="Search account..."
+                />
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div th:if="${employees != null and !employees.empty}">
+        <table class="table table-hover table-responsive-xl">
+          <thead class="thead-light">
+            <tr>
+              <th th:replace="~{fragments/sorting :: sorting('id', 'ID')}"></th>
+              <th th:replace="~{fragments/sorting :: sorting('firstName', 'First Name')}"></th>
+              <th th:replace="~{fragments/sorting :: sorting('lastName', 'Last Name')}"></th>
+              <th th:replace="~{fragments/sorting :: sorting('account', 'Account')}"></th>
+              <th th:replace="~{fragments/sorting :: sorting('role', 'Role')}"></th>
+              <th th:replace="~{fragments/sorting :: sorting('project', 'Project')}"></th>
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="employee : ${employees.content}">
+              <th scope="row">[[${employee.id}]]</th>
+              <td>[[${employee.firstName}]]</td>
+              <td>[[${employee.lastName}]]</td>
+              <td>[[${employee.account}]]</td>
+              <td>[[${employee.role}]]</td>
+              <td>[[${employee.project}]]</td>
+              <td>
+                <a
+                  th:href="@{'/ems/edit/' + ${employee.id}}"
+                  class="fa-regular fa-pen-to-square icon-dark"
+                ></a>
+                &nbsp;
+                <a
+                  th:href="@{'/ems/delete/' + ${employee.id}}"
+                  class="fa-regular fa-trash-can icon-dark btn-delete"
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div th:unless="${employees != null and !employees.empty}">
+        <span>No employee found!</span>
+      </div>
+
+      <nav aria-label="Pagination" th:if="${totalPages > 0}">
+        <ul class="pagination justify-content-center">
+          <li
+            class="page-item"
+            th:classappend="${currentPage == 1} ? 'disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/ems(page=0, size=${pageSize}, sortBy=${sortBy}, sortDir=${sortDir}, keyword=${keyword})}"
+            >
+              First
+            </a>
+          </li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage == 1} ? 'disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/ems(page=${currentPage - 2}, size=${pageSize}, sortBy=${sortBy}, sortDir=${sortDir}, keyword=${keyword})}"
+            >
+              Previous
+            </a>
+          </li>
+          <li
+            class="page-item"
+            th:each="i : ${#numbers.sequence(1, totalPages)}"
+            th:classappend="${currentPage == i} ? 'active'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/ems(page=${i - 1}, size=${pageSize}, sortBy=${sortBy}, sortDir=${sortDir}, keyword=${keyword})}"
+              th:text="${i}"
+            >
+            </a>
+          </li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage == totalPages} ? 'disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/ems(page=${currentPage}, size=${pageSize}, sortBy=${sortBy}, sortDir=${sortDir}, keyword=${keyword})}"
+            >
+              Next
+            </a>
+          </li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage == totalPages} ? 'disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/ems(page=${totalPages - 1}, size=${pageSize}, sortBy=${sortBy}, sortDir=${sortDir}, keyword=${keyword})}"
+            >
+              Last
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="modal fade text-center" id="confirmModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <span id="confirmText"></span>
+          </div>
+
+          <div class="modal-footer">
+            <a type="button" id="yesBtn" class="btn btn-danger">Yes</a>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".btn-delete").on("click", function (e) {
+          e.preventDefault();
+          link = $(this);
+
+          employeeName = link.closest("tr").find("td:nth-child(2)").text();
+          $("#yesBtn").attr("href", link.attr("href"));
+          $("#confirmText").html(
+            "Do you want to delete Mr.<strong>" +
+              employeeName +
+              "</strong>?"
+          );
+          $("#confirmModal").modal();
+        });
+      });
+    </script>
+  </body>
+</html>
